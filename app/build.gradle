@@ -36,6 +36,7 @@ dependencies {
     implementation deps.google_guava
     implementation deps.anvil_sdk
     implementation deps.retrofit
+    implementation deps.retrofit_converter_gson
     implementation deps.kotlinx_coroutines
 
     implementation deps.objectbox_kotlin
