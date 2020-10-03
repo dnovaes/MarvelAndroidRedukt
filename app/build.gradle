@@ -32,6 +32,7 @@ dependencies {
     androidTestImplementation deps.espresso_core
 
     implementation deps.redukt
+    implementation deps.concurrentlinkedhashmap
     implementation deps.google_guava
     implementation deps.anvil_sdk
     implementation deps.retrofit
