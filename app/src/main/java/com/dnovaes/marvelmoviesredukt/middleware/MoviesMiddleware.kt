@@ -7,6 +7,7 @@ import com.dnovaes.marvelmoviesredukt.services.SagaServiceApi
 import com.github.raulccabreu.redukt.actions.Action
 import com.github.raulccabreu.redukt.middlewares.BaseAnnotatedMiddleware
 import com.github.raulccabreu.redukt.middlewares.BeforeAction
+import timber.log.Timber
 
 class MoviesMiddleware : BaseAnnotatedMiddleware<AppState>() {
 
@@ -26,7 +27,7 @@ class MoviesMiddleware : BaseAnnotatedMiddleware<AppState>() {
             movies?.let { ActionCreator.instance.saveMovies(sagaType, it) }
             onFinishRequest.invoke()
         }, { errorMessage ->
-            println("logd Error when fetching '$sagaType': $errorMessage")
+            Timber.v("Download request for '$sagaType' content has failed: $errorMessage")
             onFinishRequest.invoke()
         })
     }

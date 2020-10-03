@@ -38,7 +38,7 @@ dependencies {
     implementation deps.retrofit
     implementation deps.retrofit_converter_gson
     implementation deps.kotlinx_coroutines
-
+    implementation deps.timber
     implementation deps.objectbox_kotlin
     //deps.objectbox_android
     debugImplementation deps.objectbox_android_browser

@@ -8,6 +8,7 @@ import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.reducers.MoviesReducer
 import com.dnovaes.marvelmoviesredukt.reducers.SyncReducer
 import com.github.raulccabreu.redukt.Redukt
+import timber.log.Timber
 
 class MarvelMoviesApplication: Application() {
 
@@ -36,6 +37,7 @@ class MarvelMoviesApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        if (BuildConfig.DEBUG) startLogging()
 
         ObjectBox.build(this)
         initializeRedukt(applicationContext,
@@ -44,6 +46,8 @@ class MarvelMoviesApplication: Application() {
             redukt = it
         }
     }
+
+    private fun startLogging() = Timber.plant(Timber.DebugTree())
 
     override fun onTerminate() {
         redukt.stop()
