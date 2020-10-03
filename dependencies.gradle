@@ -1,0 +1,87 @@
+ext.deps = [:]
+
+def versions = [:]
+versions.android_gradle_plugin = "3.5.2"
+versions.kotlin = "1.3.72"
+versions.objectbox = "2.3.3"
+versions.junit = "4.12"
+versions.junit_ext = "1.1.0"
+versions.okhttp3 = "3.6.0"
+versions.espresso = "3.1.0"
+versions.dexmaker = "1.4"
+versions.retrofit = "2.3.0"
+versions.threetenbp = "1.2.4"
+versions.redukt = "0.1.3"
+versions.anvil = "0.5.21"
+//versions.android_support = "28.0.0"
+versions.androidx = "1.0.2"
+//versions.jackson_guava = "2.9.3"
+versions.jackson_kotlin = "2.9.6"
+versions.curllogger = "0.1"
+versions.glide = "4.9.0"
+versions.concurrentlinkedhashmap = "1.4.2"
+versions.kotlinx_coroutines = "1.3.8"
+//versions.google_play_maps = "16.1.0"
+versions.google_guava = "19.0"
+versions.triplet_publisher = "2.2.0"
+
+def deps = [:]
+//Unit tests
+deps.junit = "junit:junit:$versions.junit"
+deps.junit_ext = "androidx.test.ext:junit:$versions.junit_ext"
+deps.mockito = "org.mockito:mockito-core:$versions.mockito"
+deps.okhttp3_core = "com.squareup.okhttp3:okhttp:$versions.okhttp3"
+deps.okhttp3_mockwebserver = "com.squareup.okhttp3:mockwebserver:$versions.okhttp3"
+deps.okhttp3_logging = "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3"
+
+//Ui tests
+
+deps.espresso_core = "androidx.test.espresso:espresso-core:$versions.espresso"
+//"com.android.support.test.espresso:espresso-core:$versions.espresso"
+//deps.espresso_contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+deps.dexmaker = "com.crittercism.dexmaker:dexmaker:$versions.dexmaker"
+deps.dexmaker_dx = "com.crittercism.dexmaker:dexmaker-dx:$versions.dexmaker"
+deps.dexmaker_mockito = "com.crittercism.dexmaker:dexmaker-mockito:$versions.dexmaker"
+
+//Core libs
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin_stdlib_jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+
+deps.objectbox_plugin = "io.objectbox:objectbox-gradle-plugin:$versions.objectbox"
+deps.objectbox_kotlin = "io.objectbox:objectbox-kotlin:$versions.objectbox"
+deps.objectbox_android = "io.objectbox:objectbox-android:$versions.objectbox"
+deps.objectbox_android_browser = "io.objectbox:objectbox-android-objectbrowser:$versions.objectbox"
+deps.objectbox_processor = "io.objectbox:objectbox-processor:$versions.objectbox"
+
+deps.redukt = "com.github.raulccabreu.redukt:core:$versions.redukt"
+deps.google_guava = "com.google.guava:guava:$versions.google_guava"
+deps.anvil_sdk = "co.trikita:anvil-sdk21:$versions.anvil"
+deps.anvil_cardview = "co.trikita:anvil-cardview-v7:$versions.anvil"
+deps.androidx_core = "androidx.core:core-ktx:$versions.androidx"
+deps.androidx_appcompat = "androidx.appcompat:appcompat:$versions.androidx"
+//deps.android_support = "com.android.support:design:$versions.android_support"
+//deps.android_support_appcompat = "com.android.support:appcompat-v7:28.0.0"
+//deps.android_support_cardview = "com.android.support:cardview-v7:$versions.android_support"
+
+deps.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+deps.retrofit_jackson = "com.squareup.retrofit2:converter-jackson:$versions.retrofit"
+deps.threetenbp = "com.jakewharton.threetenabp:threetenabp:$versions.threetenbp"
+deps.jackson_kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:$versions.jackson_kotlin"
+deps.curllogger = "com.github.grapesnberries:curlloggerinterceptor:$versions.curllogger"
+deps.glide_core = "com.github.bumptech.glide:glide:$versions.glide"
+deps.glide_compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+
+deps.concurrentlinkedhashmap = "com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:$versions.concurrentlinkedhashmap"
+deps.kotlinx_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlinx_coroutines"
+
+ext.deps = deps
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 29
+build_versions.build_tools = "29.0.2"
+build_versions.marvelmoviesredukt = "1.0"
+
+ext.build_versions = build_versions
+

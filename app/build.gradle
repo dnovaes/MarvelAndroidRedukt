@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.dnovaes.marvelmoviesredukt"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName build_versions.marvelmoviesredukt
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin_stdlib_jdk7
+    implementation deps.androidx_appcompat
+    implementation deps.androidx_core
+    testImplementation deps.junit
+    androidTestImplementation deps.junit_ext
+    androidTestImplementation deps.espresso_core
+
+    implementation deps.redukt
+    implementation deps.google_guava
+    implementation deps.anvil_sdk
+    implementation deps.retrofit
+    implementation deps.kotlinx_coroutines
+
+    implementation deps.objectbox_kotlin
+    //deps.objectbox_android
+    debugImplementation deps.objectbox_android_browser
+    annotationProcessor deps.objectbox_processor
+}
+
+apply plugin: 'io.objectbox'
