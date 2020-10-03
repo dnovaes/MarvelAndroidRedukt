@@ -1,0 +1,56 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="one_dip">1dp</dimen>
+    <dimen name="two_dip">2dp</dimen>
+    <dimen name="sync_bar">6dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_tiny">4dp</dimen>
+    <dimen name="radius_small">7dp</dimen>
+    <dimen name="radius_default">14dp</dimen>
+    <dimen name="radius_status">25dp</dimen>
+    <dimen name="radius_empty_warning">80dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_tiny">2dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_x_small">6dp</dimen>
+    <dimen name="padding_default">8dp</dimen>
+    <dimen name="padding_default_views">10dp</dimen>
+    <dimen name="padding_xx_default">12dp</dimen>
+    <dimen name="padding_xxx_default">14dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_x_medium">20dp</dimen>
+    <dimen name="padding_xx_medium">24dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+    <dimen name="padding_x_large">40dp</dimen>
+    <dimen name="padding_xxx_large">56dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_one">1dp</dimen>
+    <dimen name="margin_tiny">2dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_x_small">6dp</dimen>
+    <dimen name="margin_default">8dp</dimen>
+    <dimen name="margin_xx_default">12dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_x_medium">18dp</dimen>
+    <dimen name="margin_xx_medium">24dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_x_large">40dp</dimen>
+    <dimen name="margin_xxx_large">56dp</dimen>
+    <dimen name="margin_subtitle_large">61dp</dimen>
+    <dimen name="margin_huge">64dp</dimen>
+    <dimen name="margin_x_huge">96dp</dimen>
+
+    <!-- Fonts -->
+    <dimen name="body_text_size_small">12sp</dimen>
+    <dimen name="body_text_size">14sp</dimen>
+    <dimen name="subheading_text_size">16sp</dimen>
+    <dimen name="subtitle_text_size">18sp</dimen>
+    <dimen name="title_text_size">20sp</dimen>
+    <dimen name="title_x_text_size">22sp</dimen>
+    <dimen name="title_section_text_size">24sp</dimen>
+    <dimen name="title_section_x_text_size">30sp</dimen>
+</resources>
