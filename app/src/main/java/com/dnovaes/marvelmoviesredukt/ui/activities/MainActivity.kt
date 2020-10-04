@@ -8,12 +8,12 @@ import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
 import com.dnovaes.marvelmoviesredukt.ui.activities.base.StateActivity
 import com.dnovaes.marvelmoviesredukt.ui.components.horizontalProgressBar
+import com.dnovaes.marvelmoviesredukt.ui.components.moviesFeed
 import trikita.anvil.BaseDSL.MATCH
 import trikita.anvil.BaseDSL.size
 import trikita.anvil.BaseDSL.visibility
 import trikita.anvil.DSL.indeterminate
-import trikita.anvil.DSL.text
-import trikita.anvil.DSL.textView
+import trikita.anvil.DSL.scrollView
 
 class MainActivity : StateActivity() {
 
@@ -30,9 +30,12 @@ class MainActivity : StateActivity() {
             visibility(state.syncRunning)
         }
 
-        textView {
+        scrollView {
             size(MATCH, MATCH)
-            text("Number of movies: ${state.movies.values.count()}")
+            moviesFeed {
+                movies(state.movies.values.toList())
+                renderIfChanged()
+            }
         }
     }
 
