@@ -42,7 +42,10 @@ dependencies {
     implementation deps.objectbox_kotlin
     //deps.objectbox_android
     debugImplementation deps.objectbox_android_browser
-    annotationProcessor deps.objectbox_processor
+    kapt deps.objectbox_processor
+
+    implementation deps.glide_core
+    kapt deps.glide_compiler
 }
 
 apply plugin: 'io.objectbox'
