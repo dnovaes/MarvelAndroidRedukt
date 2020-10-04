@@ -1,38 +1,30 @@
 package com.dnovaes.marvelmoviesredukt.ui.components
 
 import android.content.Context
-import android.text.TextUtils
+import android.content.res.ColorStateList
 import com.dnovaes.marvelmoviesredukt.R
+import com.dnovaes.marvelmoviesredukt.extensions.color
 import com.dnovaes.marvelmoviesredukt.extensions.dp
 import com.dnovaes.marvelmoviesredukt.extensions.sp
 import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.ui.anvil.LinearLayoutComponent
 import com.dnovaes.marvelmoviesredukt.ui.anvil.highOrderComponent
 import com.dnovaes.marvelmoviesredukt.ui.anvil.onClickInit
-import com.dnovaes.marvelmoviesredukt.utils.Font.fontWeight
-import com.dnovaes.marvelmoviesredukt.utils.FontWeight
 import com.dnovaes.marvelmoviesredukt.utils.GlideHelper.glideBitmap
 import trikita.anvil.Anvil.currentView
-import trikita.anvil.BaseDSL.CENTER_VERTICAL
 import trikita.anvil.BaseDSL.MATCH
 import trikita.anvil.BaseDSL.WRAP
 import trikita.anvil.BaseDSL.below
 import trikita.anvil.BaseDSL.margin
 import trikita.anvil.BaseDSL.padding
 import trikita.anvil.BaseDSL.size
-import trikita.anvil.BaseDSL.text
-import trikita.anvil.BaseDSL.textSize
 import trikita.anvil.BaseDSL.toRightOf
 import trikita.anvil.DSL.backgroundResource
-import trikita.anvil.DSL.ellipsize
-import trikita.anvil.DSL.gravity
+import trikita.anvil.DSL.backgroundTintList
 import trikita.anvil.DSL.id
 import trikita.anvil.DSL.imageView
-import trikita.anvil.DSL.maxLines
 import trikita.anvil.DSL.orientation
 import trikita.anvil.DSL.relativeLayout
-import trikita.anvil.DSL.textColor
-import trikita.anvil.DSL.textView
 
 inline fun moviesFeed(crossinline func: MoviesFeed.() -> Unit) {
     highOrderComponent(func)
@@ -85,40 +77,48 @@ class MoviesFeed(context: Context): LinearLayoutComponent(context) {
         val releaseDateId = generateViewId()
         val movie = movies[linePos]
 
-        textView {
+        extendableBadge {
             id(titleId)
-            size(MATCH, WRAP)
             toRightOf(posterId)
-            padding(context.dp(R.dimen.padding_xx_medium), 0)
-            fontWeight(context, FontWeight.W500)
-            textSize(context.sp(R.dimen.title_size))
-            gravity(CENTER_VERTICAL)
-            text(movie.title)
-            ellipsize(TextUtils.TruncateAt.END)
-            maxLines(3)
+            label("Title")
+            value(movie.title)
+
+            margin(context.dp(R.dimen.padding_xx_medium), context.dp(R.dimen.margin_default),
+                context.dp(R.dimen.padding_xx_medium), 0)
+            backgroundTintList(ColorStateList.valueOf(context.color(R.color.colorPrimary)))
+            fontColor(context.color(R.color.white))
+            textSizeOfBadge(context.sp(R.dimen.subheading_text_size))
+
+
+            renderIfChanged()
         }
 
-        textView {
+        extendableBadge {
             id(genreId)
             below(titleId)
-            margin(0, context.dp(R.dimen.margin_default), 0, 0)
-            applyDefaultTextParams(posterId)
-            text(movies[linePos].released)
+            applyBadgeParams(this, posterId)
+            label("Released")
+            value(movie.released)
+            renderIfChanged()
         }
 
-        textView {
+        extendableBadge {
             id(releaseDateId)
             below(genreId)
-            applyDefaultTextParams(posterId)
-            text(movies[linePos].genre)
+            applyBadgeParams(this, posterId)
+            label("Genre")
+            value(movie.genre)
+            renderIfChanged()
         }
     }
 
-    private fun applyDefaultTextParams(posterId: Int) {
+    private fun applyBadgeParams(view: ExtendableBadge, posterId: Int) {
         toRightOf(posterId)
-        padding(context.dp(R.dimen.padding_xx_medium), 0)
-        textColor(R.color.colorSecundary)
-        textSize(context.sp(R.dimen.subheading_text_size))
+        margin(context.dp(R.dimen.padding_xx_medium), context.dp(R.dimen.margin_default),
+            context.dp(R.dimen.padding_xx_medium), 0)
+        view.fontColor(context.color(R.color.colorPrimary))
+        view.background(R.drawable.background_dashed)
+        view.textSizeOfBadge(context.sp(R.dimen.subheading_text_size))
     }
 
     fun movies(movies: List<Movie>) {

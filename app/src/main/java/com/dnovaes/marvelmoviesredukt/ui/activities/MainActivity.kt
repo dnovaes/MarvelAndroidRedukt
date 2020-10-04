@@ -8,10 +8,13 @@ import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
 import com.dnovaes.marvelmoviesredukt.ui.activities.base.StateActivity
+import com.dnovaes.marvelmoviesredukt.ui.components.TopActionBar
 import com.dnovaes.marvelmoviesredukt.ui.components.horizontalProgressBar
 import com.dnovaes.marvelmoviesredukt.ui.components.movieView
 import com.dnovaes.marvelmoviesredukt.ui.components.moviesFeed
+import com.dnovaes.marvelmoviesredukt.ui.components.topActionBar
 import trikita.anvil.BaseDSL.MATCH
+import trikita.anvil.BaseDSL.WRAP
 import trikita.anvil.BaseDSL.size
 import trikita.anvil.BaseDSL.visibility
 import trikita.anvil.DSL.indeterminate
@@ -23,6 +26,31 @@ class MainActivity : StateActivity() {
 
     override fun initialState() {
         ActionCreator.instance.fetchMovies(SAGA)
+    }
+
+    override fun buildActionBar() {
+        topActionBar {
+            size(MATCH, WRAP)
+            buildTopBarContent(this)
+            onClickLeftIcon {
+                if (selectedMovie == null) return@onClickLeftIcon
+                selectedMovie = null
+                layout?.render()
+            }
+            renderIfChanged()
+        }
+    }
+
+    private fun buildTopBarContent(view: TopActionBar) {
+        selectedMovie?.let {
+            view.title("${it.title} (${it.year})")
+            view.leftIcon(R.drawable.ic_arrow_back_24)
+            view.rightIcon(null)
+        } ?: apply {
+            view.title(this.getString(R.string.app_name))
+            view.leftIcon(R.drawable.ic_thanos_hand_24)
+            view.rightIcon(R.drawable.ic_search_icon_24)
+        }
     }
 
     override fun content() {

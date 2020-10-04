@@ -31,7 +31,6 @@ inline fun extendableBadge(crossinline func: ExtendableBadge.() -> Unit) {
 
 open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
-    protected open var icon: Int? = null
     private var label: String? = null
     var value: String? = null
 
@@ -42,19 +41,13 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
     private var fontColor: Int = BLACK
 
     override fun view() {
-        size(WRAP, WRAP)
+        if (extendedMode)
+            size(MATCH, WRAP)
+        else
+            size(WRAP, WRAP)
         backgroundResource(background)
         padding(context.dp(R.dimen.padding_tiny))
         maxWidth(maxWidth)
-
-/*
-        imageView {
-            visibility(icon != null)
-            size(context.dp(R.dimen.icon_small), context.dp(icon_small))
-            icon?.let { backgroundResource(it) }
-            backgroundTintList(ColorStateList.valueOf(BLACK))
-        }
-*/
 
         renderTextView()
 
@@ -79,12 +72,6 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
             ellipsize(END)
             maxLines(1)
         }
-    }
-
-    fun icon(icon: Int?) {
-        if (this.icon == icon) return
-        this.icon = icon
-        render()
     }
 
     fun label(label: String) {
