@@ -4,8 +4,11 @@
     <dimen name="one_dip">1dp</dimen>
     <dimen name="two_dip">2dp</dimen>
     <dimen name="sync_bar">6dp</dimen>
+    <dimen name="top_bar_divider">8dp</dimen>
     <dimen name="movie_feed_element_image_height">200dp</dimen>
     <dimen name="movie_feed_element_title_height">70dp</dimen>
+    <dimen name="badge_max_width">100dp</dimen>
+    <dimen name="badge_size">50dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_tiny">4dp</dimen>
@@ -51,5 +54,5 @@
     <dimen name="body_text_size">14sp</dimen>
     <dimen name="subheading_text_size">16sp</dimen>
     <dimen name="subtitle_text_size">18sp</dimen>
-    <dimen name="title_size">24sp</dimen>
+    <dimen name="title_size">22sp</dimen>
 </resources>

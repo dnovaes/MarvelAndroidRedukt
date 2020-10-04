@@ -5,9 +5,11 @@ import com.dnovaes.marvelmoviesredukt.R
 import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
 import com.dnovaes.marvelmoviesredukt.extensions.dp
 import com.dnovaes.marvelmoviesredukt.models.AppState
+import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
 import com.dnovaes.marvelmoviesredukt.ui.activities.base.StateActivity
 import com.dnovaes.marvelmoviesredukt.ui.components.horizontalProgressBar
+import com.dnovaes.marvelmoviesredukt.ui.components.movieView
 import com.dnovaes.marvelmoviesredukt.ui.components.moviesFeed
 import trikita.anvil.BaseDSL.MATCH
 import trikita.anvil.BaseDSL.size
@@ -16,6 +18,8 @@ import trikita.anvil.DSL.indeterminate
 import trikita.anvil.DSL.scrollView
 
 class MainActivity : StateActivity() {
+
+    private var selectedMovie: Movie? = null
 
     override fun initialState() {
         ActionCreator.instance.fetchMovies(SAGA)
@@ -32,8 +36,28 @@ class MainActivity : StateActivity() {
 
         scrollView {
             size(MATCH, MATCH)
+            visibility(selectedMovie == null)
             moviesFeed {
                 movies(state.movies.values.toList())
+                onClickMovie {
+                    if (state.movies.isEmpty()) return@onClickMovie
+                    val movies = state.movies.values.toList()
+                    selectedMovie = movies[it]
+                    layout?.render()
+                }
+                renderIfChanged()
+            }
+        }
+
+        scrollView {
+            size(MATCH, MATCH)
+            visibility(selectedMovie != null)
+            movieView {
+                selectedMovie?.let { movie(it) }
+                onClickBack {
+                    selectedMovie = null
+                    layout?.render()
+                }
                 renderIfChanged()
             }
         }

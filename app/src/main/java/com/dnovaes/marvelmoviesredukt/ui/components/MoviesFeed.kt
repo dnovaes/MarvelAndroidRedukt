@@ -8,6 +8,7 @@ import com.dnovaes.marvelmoviesredukt.extensions.sp
 import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.ui.anvil.LinearLayoutComponent
 import com.dnovaes.marvelmoviesredukt.ui.anvil.highOrderComponent
+import com.dnovaes.marvelmoviesredukt.ui.anvil.onClickInit
 import com.dnovaes.marvelmoviesredukt.utils.Font.fontWeight
 import com.dnovaes.marvelmoviesredukt.utils.FontWeight
 import com.dnovaes.marvelmoviesredukt.utils.GlideHelper.glideBitmap
@@ -40,6 +41,7 @@ inline fun moviesFeed(crossinline func: MoviesFeed.() -> Unit) {
 class MoviesFeed(context: Context): LinearLayoutComponent(context) {
 
     private var movies: List<Movie> = emptyList()
+    private var onClickMovie: ((Int) -> Unit)? = null
 
     override fun view() {
         size(MATCH, MATCH)
@@ -55,13 +57,17 @@ class MoviesFeed(context: Context): LinearLayoutComponent(context) {
     private fun renderLine(linePos: Int) {
         relativeLayout {
             size(MATCH, WRAP)
-            margin(context.dp(R.dimen.margin_default))
+            margin(context.dp(R.dimen.margin_medium), context.dp(R.dimen.margin_default))
             backgroundResource(R.drawable.background_dashed)
             padding(context.dp(R.dimen.padding_default))
 
             val posterId = generateViewId()
             renderPoster(linePos, posterId)
             renderMovieInfo(linePos, posterId)
+
+            onClickInit {
+                onClickMovie?.invoke(linePos)
+            }
         }
     }
 
@@ -83,13 +89,13 @@ class MoviesFeed(context: Context): LinearLayoutComponent(context) {
             id(titleId)
             size(MATCH, WRAP)
             toRightOf(posterId)
-            padding(context.dp(R.dimen.padding_large), 0)
+            padding(context.dp(R.dimen.padding_xx_medium), 0)
             fontWeight(context, FontWeight.W500)
             textSize(context.sp(R.dimen.title_size))
             gravity(CENTER_VERTICAL)
             text(movie.title)
             ellipsize(TextUtils.TruncateAt.END)
-            maxLines(2)
+            maxLines(3)
         }
 
         textView {
@@ -110,14 +116,18 @@ class MoviesFeed(context: Context): LinearLayoutComponent(context) {
 
     private fun applyDefaultTextParams(posterId: Int) {
         toRightOf(posterId)
-        padding(context.dp(R.dimen.padding_large), 0)
+        padding(context.dp(R.dimen.padding_xx_medium), 0)
         textColor(R.color.colorSecundary)
-        textSize(context.sp(R.dimen.subtitle_text_size))
+        textSize(context.sp(R.dimen.subheading_text_size))
     }
 
     fun movies(movies: List<Movie>) {
         if (this.movies == movies) return
         this.movies = movies
         hasChanged = true
+    }
+
+    fun onClickMovie(callback: (Int)-> Unit) {
+        this.onClickMovie = callback
     }
 }
