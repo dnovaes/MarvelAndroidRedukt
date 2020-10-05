@@ -31,13 +31,15 @@ inline fun extendableBadge(crossinline func: ExtendableBadge.() -> Unit) {
 open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
     private var label: String? = null
-    var value: String? = null
+    private var value: String? = null
 
-    protected open var background: Int = R.drawable.rounded_border_badge
+    private var background: Int = R.drawable.rounded_border_badge
     private var textSize: Float? = null
     private var extendedMode: Boolean = false
     private var fontColor: Int = BLACK
     private var widthTextView: Int = WRAP
+    private var maxLines: Int = 1
+    private var gravityDefault: Int = Gravity.CENTER
 
     override fun view() {
         if (extendedMode)
@@ -57,21 +59,26 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
     private fun renderTextView() {
         textView {
-            if (extendedMode)
-                size(MATCH, WRAP)
-            else
-                size(widthTextView, WRAP)
+            setBadgeParams()
+            ellipsize(END)
             padding(context.dp(R.dimen.padding_tiny), 0)
-            if (extendedMode)
-                text("$label: $value")
-            else
-                text(value)
             textSize?.let { textSize(it) }
             fontWeight(context, FontWeight.W500)
             textColor(fontColor)
+        }
+    }
+
+    private fun setBadgeParams() {
+        if (extendedMode) {
+            size(MATCH, WRAP)
+            text("$label: $value")
+            maxLines(3)
             gravity(Gravity.CENTER)
-            ellipsize(END)
-            maxLines(1)
+        } else {
+            size(widthTextView, WRAP)
+            text(value)
+            maxLines(maxLines)
+            gravity(gravityDefault)
         }
     }
 
@@ -102,6 +109,18 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
     fun widthTextView(width: Int) {
         if (widthTextView == width) return
         this.widthTextView = width
+        hasChanged = true
+    }
+
+    fun maxDefaultLines(maxLines: Int) {
+        if (this.maxLines == maxLines) return
+        this.maxLines = maxLines
+        hasChanged = true
+    }
+
+    fun gravityDefault(gravity: Int) {
+        if (this.gravityDefault == gravity) return
+        this.gravityDefault = gravity
         hasChanged = true
     }
 }

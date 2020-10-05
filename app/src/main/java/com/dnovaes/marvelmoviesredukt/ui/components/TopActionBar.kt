@@ -19,6 +19,7 @@ import trikita.anvil.BaseDSL.alignParentLeft
 import trikita.anvil.BaseDSL.alignParentRight
 import trikita.anvil.BaseDSL.centerVertical
 import trikita.anvil.BaseDSL.margin
+import trikita.anvil.BaseDSL.padding
 import trikita.anvil.BaseDSL.size
 import trikita.anvil.BaseDSL.text
 import trikita.anvil.BaseDSL.textSize
@@ -118,6 +119,7 @@ class TopActionBar(context: Context) : LinearLayoutComponent(context) {
             textSize(context.sp(R.dimen.title_size))
             textColor(context.color(R.color.colorPrimary))
             fontWeight(context, FontWeight.W700)
+            padding(context.dp(R.dimen.padding_small), 0)
             gravity(Gravity.CENTER)
             if (leftIcon != null)
                 toRightOf(leftIconId)

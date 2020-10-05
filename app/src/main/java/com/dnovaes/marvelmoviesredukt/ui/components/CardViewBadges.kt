@@ -2,6 +2,7 @@ package com.dnovaes.marvelmoviesredukt.ui.components
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.view.Gravity
 import com.dnovaes.marvelmoviesredukt.R
 import com.dnovaes.marvelmoviesredukt.extensions.color
 import com.dnovaes.marvelmoviesredukt.extensions.dp
@@ -33,13 +34,11 @@ open class CardViewBadges(context: Context) : LinearLayoutComponent(context) {
 
     private fun renderBadgeTitle() {
         extendableBadge {
+            applyBadgeParams(this)
             label(context.getString(R.string.title))
             value(title)
-            margin(context.dp(R.dimen.padding_xx_medium), context.dp(R.dimen.margin_default),
-                context.dp(R.dimen.padding_xx_medium), 0)
             backgroundTintList(ColorStateList.valueOf(context.color(R.color.colorPrimary)))
             fontColor(context.color(R.color.white))
-            textSizeOfBadge(context.sp(R.dimen.subheading_text_size))
             renderIfChanged()
         }
     }
@@ -49,16 +48,18 @@ open class CardViewBadges(context: Context) : LinearLayoutComponent(context) {
             applyBadgeParams(this)
             label(label)
             value(content)
+            fontColor(context.color(R.color.colorPrimary))
+            background(R.drawable.background_dashed)
             renderIfChanged()
         }
     }
 
     private fun applyBadgeParams(view: ExtendableBadge) {
-        margin(context.dp(R.dimen.padding_xx_medium), context.dp(R.dimen.margin_default),
-            context.dp(R.dimen.padding_xx_medium), 0)
-        view.fontColor(context.color(R.color.colorPrimary))
-        view.background(R.drawable.background_dashed)
+        margin(context.dp(R.dimen.padding_xx_default), context.dp(R.dimen.margin_default),
+            context.dp(R.dimen.padding_xx_default), 0)
         view.textSizeOfBadge(context.sp(R.dimen.subheading_text_size))
+        view.maxDefaultLines(3)
+        view.gravityDefault(Gravity.START)
     }
 
     fun badgeTitle(title: String) {
