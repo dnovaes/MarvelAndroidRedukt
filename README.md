@@ -58,7 +58,9 @@ https://drive.google.com/file/d/1XDFMD-UOYqPQ5WPm-JbCplHDp0am4Bqf/view?usp=shari
 
 ## More info about redux
 
-![Imgur](https://imgur.com/mSSEEdE.png)
+|  |  |
+| ------------- |:-------------:|
+|![Redux1](https://community.theforeman.org/uploads/default/original/2X/5/53a41b947c614984b25fd350859a82f4a8600d05.png)|![Redux2](https://imgur.com/Es0p9gy.png)|
 
 https://android.jlelse.eu/react-native-redux-architecture-part-1-8178fc9065c2
 
