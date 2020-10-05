@@ -42,7 +42,6 @@ abstract class MoviesFeedLayout(context: Context): LinearLayoutComponent(context
         }
 
         if (movies.isNotEmpty()) {
-            println("logd movies is empty? $movies")
             for (i in 0 until movies.count()) {
                 renderCard(i)
             }
