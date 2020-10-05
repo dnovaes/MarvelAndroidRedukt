@@ -35,9 +35,12 @@ class MainActivity : StateActivity() {
             size(MATCH, WRAP)
             buildTopBarContent(this)
             onClickLeftIcon {
-                if (selectedMovie == null) return@onClickLeftIcon
-                selectedMovie = null
-                layout?.render()
+                if (selectedMovie == null) {
+                    ActionCreator.instance.fetchMovies(SAGA)
+                } else {
+                    selectedMovie = null
+                    layout?.render()
+                }
             }
             onClickRightIcon {
                 searchMode = !searchMode
