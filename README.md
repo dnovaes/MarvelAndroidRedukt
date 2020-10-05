@@ -2,6 +2,10 @@
 
 Aplicativo Android que mostra os filmes de toda a saga infinita da Marvel. Os filmes também podem ser ordenados cronologicamente ou não de acordo com a escolha do usuário.
 
+<p align="center">
+  <img src="https://imgur.com/2at64F1.png" alt="Movie full screen description"/>
+</p>
+
 ## Arquitetura
 Foi utilizado arquitetura reativa (redux/redukt) que funciona separando o código em middlewares, dispatchers (ações) e reducers, bem como atualizando o layout a partir das alterações ocorridas no App State.
 
