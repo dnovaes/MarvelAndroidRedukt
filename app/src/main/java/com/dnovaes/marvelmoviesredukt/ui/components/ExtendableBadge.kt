@@ -20,7 +20,6 @@ import trikita.anvil.DSL.backgroundResource
 import trikita.anvil.DSL.ellipsize
 import trikita.anvil.DSL.gravity
 import trikita.anvil.DSL.maxLines
-import trikita.anvil.DSL.maxWidth
 import trikita.anvil.DSL.text
 import trikita.anvil.DSL.textColor
 import trikita.anvil.DSL.textView
@@ -36,9 +35,9 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
     protected open var background: Int = R.drawable.rounded_border_badge
     private var textSize: Float? = null
-    private var maxWidth: Int = context.dp(R.dimen.badge_max_width)
     private var extendedMode: Boolean = false
     private var fontColor: Int = BLACK
+    private var widthTextView: Int = WRAP
 
     override fun view() {
         if (extendedMode)
@@ -47,7 +46,6 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
             size(WRAP, WRAP)
         backgroundResource(background)
         padding(context.dp(R.dimen.padding_tiny))
-        maxWidth(maxWidth)
 
         renderTextView()
 
@@ -59,7 +57,10 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
     private fun renderTextView() {
         textView {
-            size(MATCH, MATCH)
+            if (extendedMode)
+                size(MATCH, WRAP)
+            else
+                size(widthTextView, WRAP)
             padding(context.dp(R.dimen.padding_tiny), 0)
             if (extendedMode)
                 text("$label: $value")
@@ -96,5 +97,11 @@ open class ExtendableBadge(context: Context) : LinearLayoutComponent(context) {
 
     fun fontColor(fontColor: Int) {
         this.fontColor = fontColor
+    }
+
+    fun widthTextView(width: Int) {
+        if (widthTextView == width) return
+        this.widthTextView = width
+        hasChanged = true
     }
 }

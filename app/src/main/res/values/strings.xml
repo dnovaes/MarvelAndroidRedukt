@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">The Infinity Saga</string>
+    <string name="no_movies_found">No movies were found</string>
+    <string name="title">Title</string>
+    <string name="released">Released</string>
+    <string name="genre">Genre</string>
+    <string name="rated">Rated</string>
+    <string name="runtime">Runtime</string>
+    <string name="director">Director</string>
+    <string name="writer">Writer</string>
+    <string name="actors">Actors</string>
+    <string name="plot">Plot</string>
 </resources>

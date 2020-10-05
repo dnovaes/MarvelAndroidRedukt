@@ -67,11 +67,11 @@ class MovieView(context: Context): LinearLayoutComponent(context) {
     }
 
     private fun renderMovieInfo(movie: Movie) {
-        renderSmallInfo(movie)
-        renderBigInfo(movie)
+        renderHighlightedInfo(movie)
+        renderCompleteInfo(movie)
     }
 
-    private fun renderSmallInfo(movie: Movie) {
+    private fun renderHighlightedInfo(movie: Movie) {
         relativeLayout {
             size(MATCH, WRAP)
             margin(context.dp(R.dimen.margin_default), 0)
@@ -81,8 +81,9 @@ class MovieView(context: Context): LinearLayoutComponent(context) {
                 toLeftOf(dividerId)
                 alignParentLeft()
                 movieInfoBadgeParams(this)
-                label("Genre")
+                label(context.getString(R.string.genre))
                 value(movie.genre)
+                widthTextView(MATCH)
                 renderIfChanged()
             }
 
@@ -97,8 +98,9 @@ class MovieView(context: Context): LinearLayoutComponent(context) {
                 toRightOf(dividerId)
                 alignParentRight()
                 movieInfoBadgeParams(this)
-                label("Released Date")
+                label(context.getString(R.string.released))
                 value(movie.released)
+                widthTextView(MATCH)
                 renderIfChanged()
             }
         }
@@ -112,7 +114,7 @@ class MovieView(context: Context): LinearLayoutComponent(context) {
         margin(context.dp(R.dimen.margin_default))
     }
 
-    private fun renderBigInfo(movie: Movie) {
+    private fun renderCompleteInfo(movie: Movie) {
         linearLayout {
             size(MATCH, WRAP)
             orientation(VERTICAL)
@@ -122,18 +124,18 @@ class MovieView(context: Context): LinearLayoutComponent(context) {
                 size(MATCH, WRAP)
                 weightSum(1f)
                 orientation(HORIZONTAL)
-                renderDescriptionField(formatTitle("Rated:", movie.rated), .5f)
-                renderDescriptionField(formatTitle("Runtime:", movie.runtime), .5f)
+                renderDescriptionField(formatTitle(context.getString(R.string.rated), movie.rated), .5f)
+                renderDescriptionField(formatTitle(context.getString(R.string.runtime), movie.runtime), .5f)
             }
-            renderDescriptionField(formatTitle("Director:", movie.director))
-            renderDescriptionField(formatTitle("Writer:", movie.writer))
-            renderDescriptionField(formatTitle("Actors:", movie.actors))
-            renderDescriptionField(formatTitle("Plot:", movie.plot))
+            renderDescriptionField(formatTitle(context.getString(R.string.director), movie.director))
+            renderDescriptionField(formatTitle(context.getString(R.string.writer), movie.writer))
+            renderDescriptionField(formatTitle(context.getString(R.string.actors), movie.actors))
+            renderDescriptionField(formatTitle(context.getString(R.string.plot), movie.plot))
         }
     }
 
     private fun formatTitle(label: String, content: String): SpannableString {
-        val spanText = SpannableString("$label $content")
+        val spanText = SpannableString("$label: $content")
         spanText.setSpan(ForegroundColorSpan(context.color(R.color.colorPrimary)), 0, label.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return spanText
