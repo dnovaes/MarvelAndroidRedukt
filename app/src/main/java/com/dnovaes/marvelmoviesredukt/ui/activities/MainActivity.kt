@@ -12,17 +12,19 @@ import com.dnovaes.marvelmoviesredukt.ui.components.TopActionBar
 import com.dnovaes.marvelmoviesredukt.ui.components.horizontalProgressBar
 import com.dnovaes.marvelmoviesredukt.ui.components.movieView
 import com.dnovaes.marvelmoviesredukt.ui.components.moviesFeed
+import com.dnovaes.marvelmoviesredukt.ui.components.searchField
 import com.dnovaes.marvelmoviesredukt.ui.components.topActionBar
 import trikita.anvil.BaseDSL.MATCH
 import trikita.anvil.BaseDSL.WRAP
 import trikita.anvil.BaseDSL.size
-import trikita.anvil.BaseDSL.visibility
 import trikita.anvil.DSL.indeterminate
 import trikita.anvil.DSL.scrollView
+import trikita.anvil.DSL.visibility
 
 class MainActivity : StateActivity() {
 
     private var selectedMovie: Movie? = null
+    private var searchMode: Boolean = false
 
     override fun initialState() {
         ActionCreator.instance.fetchMovies(SAGA)
@@ -37,7 +39,25 @@ class MainActivity : StateActivity() {
                 selectedMovie = null
                 layout?.render()
             }
+            onClickRightIcon {
+                searchMode = !searchMode
+                layout?.render()
+            }
             renderIfChanged()
+        }
+
+        searchField {
+            size(MATCH, WRAP)
+            visibility(searchMode && selectedMovie == null)
+
+            onFinishTyping {
+                ActionCreator.instance.searchMovies(it)
+            }
+
+            onClose {
+                searchMode = false
+                layout?.render()
+            }
         }
     }
 
@@ -66,10 +86,10 @@ class MainActivity : StateActivity() {
             size(MATCH, MATCH)
             visibility(selectedMovie == null)
             moviesFeed {
-                movies(state.movies.values.toList())
+                movies(state.getFilteredMovies().values.toList())
                 onClickMovie {
                     if (state.movies.isEmpty()) return@onClickMovie
-                    val movies = state.movies.values.toList()
+                    val movies = state.getFilteredMovies().values.toList()
                     selectedMovie = movies[it]
                     layout?.render()
                 }
@@ -92,7 +112,8 @@ class MainActivity : StateActivity() {
     }
 
     override fun hasChanged(newState: AppState, oldState: AppState): Boolean {
-        return newState.syncRunning != oldState.syncRunning
+        return newState.syncRunning != oldState.syncRunning ||
+                newState.getFilteredMovies() != oldState.getFilteredMovies()
     }
 
     override fun onChanged(state: AppState) {
