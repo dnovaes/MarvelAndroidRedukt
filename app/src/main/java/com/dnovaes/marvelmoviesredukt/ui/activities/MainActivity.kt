@@ -6,7 +6,6 @@ import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
 import com.dnovaes.marvelmoviesredukt.extensions.dp
 import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.models.Movie
-import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
 import com.dnovaes.marvelmoviesredukt.ui.activities.base.StateActivity
 import com.dnovaes.marvelmoviesredukt.ui.components.TopActionBar
 import com.dnovaes.marvelmoviesredukt.ui.components.horizontalProgressBar
@@ -26,21 +25,16 @@ class MainActivity : StateActivity() {
     private var selectedMovie: Movie? = null
     private var searchMode: Boolean = false
 
-    override fun initialState() {
-        ActionCreator.instance.fetchMovies(SAGA)
-    }
+    override fun initialState() { }
 
     override fun buildActionBar() {
         topActionBar {
             size(MATCH, WRAP)
             buildTopBarContent(this)
             onClickLeftIcon {
-                if (selectedMovie == null) {
-                    ActionCreator.instance.fetchMovies(SAGA)
-                } else {
-                    selectedMovie = null
-                    layout?.render()
-                }
+                if (selectedMovie == null) return@onClickLeftIcon
+                selectedMovie = null
+                layout?.render()
             }
             onClickRightIcon {
                 searchMode = !searchMode

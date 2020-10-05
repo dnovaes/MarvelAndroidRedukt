@@ -1,21 +1,23 @@
 package com.dnovaes.marvelmoviesredukt.middleware
 
 import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
-import com.dnovaes.marvelmoviesredukt.actions.Actions.DOWNLOAD_MOVIES
+import com.dnovaes.marvelmoviesredukt.actions.Actions.LOAD_MOVIES
+import com.dnovaes.marvelmoviesredukt.actions.Actions.SYNC_MOVIES
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SEARCH_MOVIES
 import com.dnovaes.marvelmoviesredukt.models.AppState
-import com.dnovaes.marvelmoviesredukt.models.payloads.SaveMoviesPayload
+import com.dnovaes.marvelmoviesredukt.models.payloads.MoviesPayload
 import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
 import com.dnovaes.marvelmoviesredukt.services.SagaServiceApi
 import com.github.raulccabreu.redukt.actions.Action
+import com.github.raulccabreu.redukt.middlewares.AfterAction
 import com.github.raulccabreu.redukt.middlewares.BaseAnnotatedMiddleware
 import com.github.raulccabreu.redukt.middlewares.BeforeAction
 import timber.log.Timber
 
 class MoviesMiddleware : BaseAnnotatedMiddleware<AppState>() {
 
-    @BeforeAction(DOWNLOAD_MOVIES)
-    fun fetchMarvelSaga(state: AppState, action: Action<*>) {
+    @BeforeAction(SYNC_MOVIES)
+    fun syncMovies(state: AppState, action: Action<*>) {
         val sagaType = action.payload as String
         ActionCreator.instance.updateSync(true)
 
@@ -42,6 +44,11 @@ class MoviesMiddleware : BaseAnnotatedMiddleware<AppState>() {
         val filteredMovies = state.movies
             .filter { it.value.title.contains(filter, true) }
             .map { it.value }.toList()
-        ActionCreator.instance.saveSearchedMovies(SaveMoviesPayload(SAGA, filteredMovies))
+        ActionCreator.instance.saveSearchedMovies(MoviesPayload(SAGA, filteredMovies))
+    }
+
+    @AfterAction(LOAD_MOVIES)
+    fun moviesLoaded(state: AppState, action: Action<*>) {
+        ActionCreator.instance.stateLoaded()
     }
 }
