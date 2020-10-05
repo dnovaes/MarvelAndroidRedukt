@@ -5,7 +5,8 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class Movie(
-    @Id(assignable = true) var id: Long = 1,
+    var id: Int = 0,
+    @Id(assignable = true) var _id: Long = id.toLong(),
     val title: String,
     val year: String,
     val rated: String,
@@ -16,7 +17,7 @@ data class Movie(
     val writer: String,
     val actors: String,
     val plot: String,
-    val poster: String
-) {
-}
+    val poster: String,
+    val score: Double = 0.0
+)
 

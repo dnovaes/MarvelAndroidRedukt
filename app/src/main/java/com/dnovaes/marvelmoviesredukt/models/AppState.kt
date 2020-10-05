@@ -7,6 +7,24 @@ data class AppState(
     val stateLoaded: Boolean = false
 ) {
 
-    fun getFilteredMovies(): Map<Int, Movie> = searchResult ?: movies
+    fun filteredMovies(): Map<Int, Movie> {
+        return searchResultOrderByScore() ?: moviesOrderedByScore()
+    }
+
+    private fun searchResultOrderByScore(): Map<Int, Movie>? {
+        return if (searchResult.isNullOrEmpty())
+            null
+        else {
+            searchResult.values.sortedByDescending { it.score }.map { it._id.toInt() to it}.toMap()
+        }
+    }
+
+    private fun moviesOrderedByScore(): Map<Int, Movie> {
+        return if (movies.isNullOrEmpty())
+            linkedMapOf()
+        else {
+            movies.values.sortedByDescending { it.score }.map { it._id.toInt() to it}.toMap()
+        }
+    }
 }
 

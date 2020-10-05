@@ -51,7 +51,6 @@ abstract class MoviesFeedLayout(context: Context): LinearLayoutComponent(context
     abstract fun renderCard(linePos: Int)
 
     fun movies(movies: List<Movie>) {
-        if (this.movies == movies) return
         this.movies = movies
         hasChanged = true
     }

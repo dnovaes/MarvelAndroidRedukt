@@ -83,10 +83,10 @@ class MainActivity : StateActivity() {
             size(MATCH, MATCH)
             visibility(selectedMovie == null)
             moviesFeed {
-                movies(state.getFilteredMovies().values.toList())
+                movies(state.filteredMovies().values.toList())
                 onClickMovie {
                     if (state.movies.isEmpty()) return@onClickMovie
-                    val movies = state.getFilteredMovies().values.toList()
+                    val movies = state.filteredMovies().values.toList()
                     selectedMovie = movies[it]
                     layout?.render()
                 }
@@ -110,7 +110,7 @@ class MainActivity : StateActivity() {
 
     override fun hasChanged(newState: AppState, oldState: AppState): Boolean {
         return newState.syncRunning != oldState.syncRunning ||
-                newState.getFilteredMovies() != oldState.getFilteredMovies()
+            newState.filteredMovies() != oldState.filteredMovies()
     }
 
     override fun onChanged(state: AppState) {

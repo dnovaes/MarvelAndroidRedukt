@@ -8,6 +8,7 @@ import com.dnovaes.marvelmoviesredukt.actions.Actions.STATE_LOADED
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SEARCH_MOVIES
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SAVE_MOVIES
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SAVE_SEARCHED_MOVIES
+import com.dnovaes.marvelmoviesredukt.actions.Actions.UPDATE_MOVIE_SCORE
 import com.dnovaes.marvelmoviesredukt.actions.Actions.UPDATE_SYNC
 import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.models.payloads.MoviesPayload
@@ -53,6 +54,10 @@ class ActionCreator private constructor() {
 
     fun loadState() {
         asyncDispatch(Action<Any>(LOAD_STATE))
+    }
+
+    fun updateMovieScore(movie: Movie) {
+        asyncDispatch(Action<Any>(UPDATE_MOVIE_SCORE, movie))
     }
 
     private fun asyncDispatch(action: Action<*>) {

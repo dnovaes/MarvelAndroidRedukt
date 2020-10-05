@@ -58,7 +58,7 @@ open class CardViewBadges(context: Context) : LinearLayoutComponent(context) {
         margin(context.dp(R.dimen.padding_xx_default), context.dp(R.dimen.margin_default),
             context.dp(R.dimen.padding_xx_default), 0)
         view.textSizeOfBadge(context.sp(R.dimen.subheading_text_size))
-        view.maxDefaultLines(3)
+        view.maxDefaultLines(2)
         view.gravityDefault(Gravity.START)
     }
 

@@ -3,6 +3,7 @@ package com.dnovaes.marvelmoviesredukt.reducers
 import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
 import com.dnovaes.marvelmoviesredukt.actions.Actions.LOAD_MOVIES
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SAVE_SEARCHED_MOVIES
+import com.dnovaes.marvelmoviesredukt.actions.Actions.UPDATE_MOVIE_SCORE
 import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.models.Movie
 import com.dnovaes.marvelmoviesredukt.services.RouteConstants.SAGA
@@ -30,19 +31,28 @@ class MoviesReducer : BaseAnnotatedReducer<AppState>() {
 
     private fun saveSaga(state: AppState, movies: List<Movie>): AppState {
         val moviesMap = mutableMapOf<Int, Movie>()
-        movies.forEachIndexed { index, movie ->
-            moviesMap[index] = movie
+        movies.forEach { movie ->
+            moviesMap[movie._id.toInt()] = movie
         }
         return state.copy(movies = LinkedHashMap(moviesMap))
     }
 
     private fun saveSagaSearchResult(state: AppState, movies: List<Movie>): AppState {
         val moviesMap = mutableMapOf<Int, Movie>()
-        movies.forEachIndexed { index, movie ->
-            moviesMap[index] = movie
+        movies.forEach { movie ->
+            moviesMap[movie._id.toInt()] = movie
         }
         ActionCreator.instance.updateSync(false)
         return state.copy(searchResult= LinkedHashMap(moviesMap))
     }
 
+    @Reduce(UPDATE_MOVIE_SCORE)
+    fun updateMovieScore(state: AppState, movie: Movie): AppState {
+        val oldMovie = state.movies.values.firstOrNull{ it._id == movie._id } ?: return state
+        val newMovie = oldMovie.copy(score = movie.score)
+        val newMovies = state.movies.toMutableMap()
+        newMovies[oldMovie._id.toInt()] = newMovie
+
+        return state.copy(movies = LinkedHashMap(newMovies))
+    }
 }

@@ -3,6 +3,7 @@ package com.dnovaes.marvelmoviesredukt.middleware
 import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
 import com.dnovaes.marvelmoviesredukt.actions.Actions.LOAD_STATE
 import com.dnovaes.marvelmoviesredukt.actions.Actions.SAVE_MOVIES
+import com.dnovaes.marvelmoviesredukt.actions.Actions.UPDATE_MOVIE_SCORE
 import com.dnovaes.marvelmoviesredukt.database.ObjectBox
 import com.dnovaes.marvelmoviesredukt.models.AppState
 import com.dnovaes.marvelmoviesredukt.models.Movie
@@ -38,4 +39,11 @@ class DatabaseMiddleware : BaseAnnotatedMiddleware<AppState>() {
     fun loadSavedMovies(state: AppState, action: Action<*>) {
         ActionCreator.instance.loadState()
     }
+
+    @AfterAction(UPDATE_MOVIE_SCORE)
+    fun updateMovieScore(state: AppState, action: Action<*>) {
+        val movie = action.payload as? Movie ?: return
+        ObjectBox.put(movie, Movie::class.java)
+    }
+
 }

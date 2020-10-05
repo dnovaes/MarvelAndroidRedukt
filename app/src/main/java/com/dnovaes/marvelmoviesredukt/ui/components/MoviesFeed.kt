@@ -2,6 +2,7 @@ package com.dnovaes.marvelmoviesredukt.ui.components
 
 import android.content.Context
 import com.dnovaes.marvelmoviesredukt.R
+import com.dnovaes.marvelmoviesredukt.actions.ActionCreator
 import com.dnovaes.marvelmoviesredukt.extensions.dp
 import com.dnovaes.marvelmoviesredukt.ui.anvil.highOrderComponent
 import com.dnovaes.marvelmoviesredukt.ui.anvil.onClickInit
@@ -26,7 +27,7 @@ class MoviesFeed(context: Context): MoviesFeedLayout(context) {
 
     override fun renderCard(linePos: Int) {
         linearLayout {
-            size(MATCH, WRAP)
+            size(MATCH, MATCH)
             orientation(HORIZONTAL)
             margin(context.dp(R.dimen.margin_medium), context.dp(R.dimen.margin_default))
             backgroundResource(R.drawable.background_dashed)
@@ -34,10 +35,6 @@ class MoviesFeed(context: Context): MoviesFeedLayout(context) {
 
             renderPoster(linePos)
             renderMovieInfo(linePos)
-
-            onClickInit {
-                onClickMovie?.invoke(linePos)
-            }
         }
     }
 
@@ -45,6 +42,10 @@ class MoviesFeed(context: Context): MoviesFeedLayout(context) {
         imageView {
             size(WRAP, context.dp(R.dimen.movie_feed_element_image_height))
             glideBitmap(context, movies[linePos].poster, currentView())
+
+            onClickInit {
+                onClickMovie?.invoke(linePos)
+            }
         }
     }
 
@@ -55,10 +56,29 @@ class MoviesFeed(context: Context): MoviesFeedLayout(context) {
             context.getString(R.string.genre) to movie.genre
         )
 
-        cardViewBadges {
-            size(MATCH, WRAP)
-            badgeTitle(movie.title)
-            badgesContent(badgesDescription)
+        linearLayout {
+            size(MATCH, MATCH)
+            orientation(VERTICAL)
+
+            cardViewBadges {
+                size(MATCH, WRAP)
+                badgeTitle(movie.title)
+                badgesContent(badgesDescription)
+                renderIfChanged()
+            }
+            renderFavoriteInfo(linePos)
+        }
+    }
+
+    private fun renderFavoriteInfo(linePos: Int) {
+        val movie = movies[linePos]
+        movieScoreView {
+            movieId(movie._id.toInt())
+            score(movie.score)
+            onClickStar { score ->
+                val newMovie = movie.copy(score = score)
+                ActionCreator.instance.updateMovieScore(newMovie)
+            }
             renderIfChanged()
         }
     }

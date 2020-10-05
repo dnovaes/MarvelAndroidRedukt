@@ -13,9 +13,14 @@ object ObjectBox {
         boxStore = MyObjectBox.builder().androidContext(context.applicationContext).build()
     }
 
+    fun <T> put(movie: T, clazz: Class<T>) {
+        val box = boxStore.boxFor(clazz)
+        box.remove(movie)
+        box.put(movie)
+    }
+
     fun <T> putAll(list: List<T>, clazz: Class<T>) {
         if (list.isEmpty()) return
-
         boxStore.boxFor(clazz).put(list)
     }
 

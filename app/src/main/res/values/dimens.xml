@@ -7,6 +7,7 @@
     <dimen name="top_bar_divider">4dp</dimen>
     <dimen name="movie_feed_element_image_height">200dp</dimen>
     <dimen name="movie_feed_element_title_height">70dp</dimen>
+    <dimen name="movie_score_view_height">40dp</dimen>
     <dimen name="badge_max_width">100dp</dimen>
     <dimen name="badge_size">50dp</dimen>
 
