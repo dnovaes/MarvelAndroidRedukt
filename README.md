@@ -60,7 +60,7 @@ https://drive.google.com/file/d/1egKZ8nvnYDqDqd6J7IJxYmf6O7JWX-3L/view?usp=shari
 ## APK:
 https://drive.google.com/file/d/1XDFMD-UOYqPQ5WPm-JbCplHDp0am4Bqf/view?usp=sharing
 
-## More info about redux
+## Mais informações sobre Redux
 
 |  |  |
 | ------------- |:-------------:|
@@ -69,3 +69,9 @@ https://drive.google.com/file/d/1XDFMD-UOYqPQ5WPm-JbCplHDp0am4Bqf/view?usp=shari
 https://android.jlelse.eu/react-native-redux-architecture-part-1-8178fc9065c2
 
 https://medium.com/@trikita/writing-a-todo-app-with-redux-on-android-5de31cfbdb4f
+
+## Instruções para gerar o apk
+
+```
+./gradlew assembleDebug; find . -name *.apk
+```
